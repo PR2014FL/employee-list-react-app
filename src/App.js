@@ -1,25 +1,21 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+
+import { allEmployees } from './data/data'
+
+import HomePage from './components/HomePage';
+import EmployeePage from './components/EmployeePage';
+
 import './App.css';
 
-function App() {
+export default function App() {
+  const [selectedEmployee, setSelectedEmployee] = useState(allEmployees[0]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="App">
+      <HomePage employees={allEmployees} setSelectedEmployee={setSelectedEmployee} />
+      <EmployeePage selectedEmployee={selectedEmployee} />
+    </main>
   );
 }
 
-export default App;
+
