@@ -1,21 +1,31 @@
-import { useState } from 'react';
+import React, { useState, createContext } from "react";
+import "./App.css";
+import { allStudents } from "./models/allStudents";
+import Dashboard from "./components/Dashboard";
+import Profile from "./components/Profile";
 
-import { allEmployees } from './data/data'
+// create our variable to rep context
+export const StudentContext = createContext();
 
-import HomePage from './components/HomePage';
-import EmployeePage from './components/EmployeePage';
+function App() {
+  const [students, setStudents] = useState(allStudents);
 
-import './App.css';
-
-export default function App() {
-  const [selectedEmployee, setSelectedEmployee] = useState(allEmployees[0]);
+  const [currentStudent, setCurrentStudent] = useState({});
 
   return (
-    <main className="App">
-      <HomePage employees={allEmployees} setSelectedEmployee={setSelectedEmployee} />
-      <EmployeePage selectedEmployee={selectedEmployee} />
-    </main>
+    <div className="App">
+      <StudentContext.Provider value={{ students, setStudents, currentStudent,setCurrentStudent }}>
+        <div className="mainContainer">
+          <div className="dash">
+            <Dashboard />
+          </div>
+          <div className="profile">
+            <Profile />
+          </div>
+        </div>
+      </StudentContext.Provider>
+    </div>
   );
 }
 
-
+export default App;
